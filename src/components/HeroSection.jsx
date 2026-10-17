@@ -17,8 +17,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import heroSlides from "../../data/heroSlides";
-import "../componentsCss/Home/HeroSection.css";
+import heroSlides from "@/data/heroSlides";
+import "@/components/ComponentsCss/HeroSection.css";
 
 function HeroSection() {
   const [swiperInstance, setSwiperInstance] = useState(null);
