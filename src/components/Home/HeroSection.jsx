@@ -1,14 +1,19 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Autoplay,
-  Navigation,
   Pagination,
   EffectFade,
 } from "swiper/modules";
 
+import {
+  FiArrowRight,
+  FiChevronLeft,
+  FiChevronRight,
+} from "react-icons/fi";
+
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
@@ -16,10 +21,12 @@ import heroSlides from "../../data/heroSlides";
 import "../componentsCss/Home/HeroSection.css";
 
 function HeroSection() {
+  const [swiperInstance, setSwiperInstance] = useState(null);
+
   return (
     <section className="hero-section">
       <Swiper
-        modules={[Autoplay, Navigation, Pagination, EffectFade]}
+        modules={[Autoplay, Pagination, EffectFade]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
         slidesPerView={1}
@@ -30,8 +37,8 @@ function HeroSection() {
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         }}
-        navigation
         pagination={{ clickable: true }}
+        onSwiper={setSwiperInstance}
         className="hero-swiper"
       >
         {heroSlides.map((slide) => (
@@ -59,7 +66,8 @@ function HeroSection() {
                     to={slide.buttonLink}
                     className="hero-btn hero-btn-primary"
                   >
-                    {slide.buttonText} <span>→</span>
+                    {slide.buttonText}
+                    <FiArrowRight aria-hidden="true" />
                   </Link>
 
                   <Link
@@ -80,6 +88,28 @@ function HeroSection() {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {heroSlides.length > 1 && (
+        <div className="hero-navigation">
+          <button
+            type="button"
+            className="hero-nav-btn hero-prev"
+            onClick={() => swiperInstance?.slidePrev()}
+            aria-label="Previous slide"
+          >
+            <FiChevronLeft />
+          </button>
+
+          <button
+            type="button"
+            className="hero-nav-btn hero-next"
+            onClick={() => swiperInstance?.slideNext()}
+            aria-label="Next slide"
+          >
+            <FiChevronRight />
+          </button>
+        </div>
+      )}
     </section>
   );
 }

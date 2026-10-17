@@ -1,4 +1,5 @@
 .hero-section {
+  position: relative;
   width: 100%;
   overflow: hidden;
   background: #fff3ef;
@@ -11,10 +12,10 @@
 
 .hero-slide {
   position: relative;
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   background: #fbe8e3;
 }
@@ -122,6 +123,8 @@
   background: #10231c;
 }
 
+/* Offer badge */
+
 .hero-offer {
   position: absolute;
   z-index: 2;
@@ -154,23 +157,45 @@
   line-height: 1;
 }
 
-/* Swiper arrows */
+/* React Icons navigation */
 
-.hero-swiper .swiper-button-prev,
-.hero-swiper .swiper-button-next {
-  width: 40px;
-  height: 40px;
+.hero-navigation {
+  position: absolute;
+  z-index: 5;
+  inset: 50% 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.hero-nav-btn {
+  display: flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   color: #14251e;
+  font-size: 23px;
+  cursor: pointer;
+  pointer-events: auto;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
-.hero-swiper .swiper-button-prev::after,
-.hero-swiper .swiper-button-next::after {
-  font-size: 15px;
-  font-weight: 800;
+.hero-nav-btn:hover {
+  background: #10231c;
+  color: #fff;
 }
+
+/* Swiper pagination */
 
 .hero-swiper .swiper-pagination {
   bottom: 20px;
@@ -236,9 +261,14 @@
     font-size: 23px;
   }
 
-  .hero-swiper .swiper-button-prev,
-  .hero-swiper .swiper-button-next {
-    display: none;
+  .hero-navigation {
+    padding: 0 10px;
+  }
+
+  .hero-nav-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
   }
 }
 
@@ -290,6 +320,7 @@
 
   .hero-btn {
     min-height: 42px;
+    gap: 8px;
     padding: 0 14px;
     font-size: 11px;
   }
@@ -307,6 +338,16 @@
 
   .hero-offer strong {
     font-size: 20px;
+  }
+
+  .hero-navigation {
+    padding: 0 7px;
+  }
+
+  .hero-nav-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
   }
 
   .hero-swiper .swiper-pagination {
