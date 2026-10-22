@@ -543,7 +543,7 @@ function Blog() {
         </div>
       )}
     </main>
-  );
+  );    
 }
 
 export default Blog;
