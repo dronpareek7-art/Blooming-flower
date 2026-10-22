@@ -1,6 +1,7 @@
 import React from 'react'
 import HeroSection from '../components/HeroSection'
 import CategorySection from '../components/CategorySection'
+import SpecialCollection from '../components/SpecialCollection'
 
 const Hero = () => {
   return (
@@ -9,6 +10,7 @@ const Hero = () => {
 
         <HeroSection/>
         <CategorySection/>
+        <SpecialCollection/>
     </div>
   )
 }
