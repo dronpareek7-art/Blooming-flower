@@ -1,4 +1,3 @@
-
 const products = [
   {
     id: 1,
@@ -20,7 +19,7 @@ const products = [
     rating: 4.8,
     badge: "POPULAR",
     image:
-      "https://images.unsplash.com/photo-1548094967-e25a127d1d6f?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 3,
@@ -53,7 +52,7 @@ const products = [
     rating: 4.8,
     badge: "PREMIUM",
     image:
-      "https://images.unsplash.com/photo-1566907225472-8a2e5e9f4e42?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 6,
@@ -75,7 +74,7 @@ const products = [
     rating: 4.9,
     badge: "GIFT PICK",
     image:
-      "https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=85",
+      "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=85",
   },
   {
     id: 8,

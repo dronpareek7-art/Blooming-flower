@@ -1,4 +1,3 @@
-
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -48,8 +47,7 @@ function Shop() {
         product.category.toLowerCase().includes(search.toLowerCase());
 
       const matchesCategory =
-        category === "All Flowers" ||
-        product.category === category;
+        category === "All Flowers" || product.category === category;
 
       const matchesPrice = product.price <= maxPrice;
 
@@ -71,7 +69,7 @@ function Shop() {
     setWishlist((current) =>
       current.includes(productId)
         ? current.filter((id) => id !== productId)
-        : [...current, productId]
+        : [...current, productId],
     );
   };
 
@@ -101,9 +99,7 @@ function Shop() {
             <span>Shop</span>
           </div>
 
-          <span className="shop-eyebrow">
-            MADE WITH LOVE, PICKED FOR YOU
-          </span>
+          <span className="shop-eyebrow">MADE WITH LOVE, PICKED FOR YOU</span>
 
           <h1>
             Find Flowers
@@ -112,8 +108,8 @@ function Shop() {
           </h1>
 
           <p>
-            Thoughtfully arranged blooms for everyday joy,
-            heartfelt gifts and unforgettable moments.
+            Thoughtfully arranged blooms for everyday joy, heartfelt gifts and
+            unforgettable moments.
           </p>
 
           <a href="#shop-products" className="shop-hero-btn">
@@ -267,9 +263,7 @@ function Shop() {
                 max="3000"
                 step="100"
                 value={maxPrice}
-                onChange={(event) =>
-                  setMaxPrice(Number(event.target.value))
-                }
+                onChange={(event) => setMaxPrice(Number(event.target.value))}
                 aria-label="Maximum product price"
               />
 
@@ -308,9 +302,8 @@ function Shop() {
                 {filteredProducts.map((product) => {
                   const isWishlisted = wishlist.includes(product.id);
                   const discount = Math.round(
-                    ((product.oldPrice - product.price) /
-                      product.oldPrice) *
-                      100
+                    ((product.oldPrice - product.price) / product.oldPrice) *
+                      100,
                   );
 
                   return (
@@ -324,8 +317,12 @@ function Shop() {
                           <img
                             src={product.image}
                             alt={product.name}
-                            className="shop-product-image"
                             loading="lazy"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src =
+                                "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=85";
+                            }}
                           />
                         </Link>
 
@@ -339,9 +336,7 @@ function Shop() {
                           </span>
                         )}
 
-                        <span className="shop-discount">
-                          {discount}% OFF
-                        </span>
+                        <span className="shop-discount">{discount}% OFF</span>
 
                         <button
                           type="button"
@@ -409,9 +404,7 @@ function Shop() {
               <div className="shop-empty-state">
                 <FiSearch />
                 <h3>No flowers found</h3>
-                <p>
-                  Try another search or adjust your selected filters.
-                </p>
+                <p>Try another search or adjust your selected filters.</p>
                 <button type="button" onClick={resetFilters}>
                   View all products
                 </button>
