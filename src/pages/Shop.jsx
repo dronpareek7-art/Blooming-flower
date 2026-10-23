@@ -14,12 +14,7 @@ import {
 
 import products from "../data/products";
 import "@/components/ComponentsCss/Shop.css";
-import { useCart , totalItems } from "../context/CartContext";
-const handleAddToCart = (product) => {
-  addToCart(product);
-  setNotice(`${product.name} added to your cart`);
-  window.setTimeout(() => setNotice(""), 2500);
-};
+import { useCart } from "../context/CartContext";
 const categories = [
   "All Flowers",
   "Roses",
@@ -44,7 +39,13 @@ function Shop() {
   const [showFilters, setShowFilters] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   const [notice, setNotice] = useState("");
-  const { addToCart } = useCart;
+  const { addToCart, totalItems } = useCart();
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setNotice(`${product.name} added to your cart`);
+    window.setTimeout(() => setNotice(""), 2500);
+  };
 
   const filteredProducts = useMemo(() => {
     let result = products.filter((product) => {

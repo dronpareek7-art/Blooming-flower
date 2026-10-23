@@ -10,6 +10,7 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import CategorySection from './components/CategorySection'
 import Cart from './pages/Cart'
+import ProductDetails from './pages/ProductDetails'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
     <Route path='/cart' element={<Cart/>}/>
     <Route path='/blogs' element={<Blog/>}/>
     <Route path='/about' element={<About/>}/>
+    <Route path='/product/:id' element={<ProductDetails/>}/>
     <Route path='/contact' element={<Contact/>}/>
     <Route path='/categories' element={<CategorySection variant='page'/>}/>
     </Route>

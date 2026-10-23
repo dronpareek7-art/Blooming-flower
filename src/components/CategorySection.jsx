@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { FiArrowRight, FiSearch, FiStar } from "react-icons/fi";
+import { FiArrowRight, FiSearch, FiStar ,FiShoppingCart} from "react-icons/fi";
 
 import products from "../data/products";
 import "./ComponentsCss/CategorySection.css";
