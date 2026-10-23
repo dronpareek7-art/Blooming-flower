@@ -8,7 +8,7 @@ import {
 } from "react-icons/fi";
 
 import products from "../data/products";
-import "@/components/ComponentsCss/CategorySection.css";
+import "./ComponentsCss/CategorySection.css";
 
 import bouquetImage from "../assets/images/category-bouquets.png";
 import rosesImage from "../assets/images/category-roses.png";
