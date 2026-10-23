@@ -9,6 +9,7 @@ import Blog from './pages/Blog'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import CategorySection from './components/CategorySection'
+import Cart from './pages/Cart'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
     <Route element={<Layout/>}>
     <Route path='/' element={<Hero/>}/>
     <Route path='/shop' element={<Shop/>}/>
+    <Route path='/cart' element={<Cart/>}/>
     <Route path='/blogs' element={<Blog/>}/>
     <Route path='/about' element={<About/>}/>
     <Route path='/contact' element={<Contact/>}/>

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
@@ -9,7 +8,7 @@ import {
   FiMenu,
   FiX,
 } from "react-icons/fi";
-
+import { useCart } from "../context/CartContext";
 import "@/components/ComponentsCss/Header.css";
 const navLinks = [
   { label: "Home", path: "/" },
@@ -22,7 +21,7 @@ const navLinks = [
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { totalItems } = useCart();
   const closeMenu = () => setIsMenuOpen(false);
 
   useEffect(() => {
@@ -62,7 +61,6 @@ function Header() {
                 event.currentTarget.style.display = "none";
               }}
             />
-
           </Link>
 
           {/* Desktop Navigation */}
@@ -83,11 +81,7 @@ function Header() {
 
           {/* Header Actions */}
           <div className="header-actions">
-            <Link
-              to="/search"
-              className="header-icon-link"
-              aria-label="Search"
-            >
+            <Link to="/search" className="header-icon-link" aria-label="Search">
               <FiSearch />
             </Link>
 
@@ -101,11 +95,13 @@ function Header() {
 
             <Link
               to="/cart"
-              className="header-icon-link cart-icon-link"
-              aria-label="Shopping cart"
+              className="header-cart-link"
+              aria-label={`Cart, ${totalItems} items`}
             >
               <FiShoppingCart />
-              <span className="cart-count">2</span>
+              {totalItems > 0 && (
+                <span className="header-cart-count">{totalItems}</span>
+              )}
             </Link>
 
             <Link
@@ -163,7 +159,10 @@ function Header() {
 
         <p className="sidebar-caption">EXPLORE NOVA</p>
 
-        <nav className="sidebar-navigation" aria-label="Mobile navigation links">
+        <nav
+          className="sidebar-navigation"
+          aria-label="Mobile navigation links"
+        >
           {navLinks.map((link, index) => (
             <NavLink
               key={link.path}

@@ -1,15 +1,10 @@
-
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  FiArrowRight,
-  FiSearch,
-  FiStar,
-} from "react-icons/fi";
+import { FiArrowRight, FiSearch, FiStar } from "react-icons/fi";
 
 import products from "../data/products";
 import "./ComponentsCss/CategorySection.css";
-
+import { useCart } from "../context/CartContext";
 import bouquetImage from "../assets/images/category-bouquets.png";
 import rosesImage from "../assets/images/category-roses.png";
 import orchidsImage from "../assets/images/category-orchids.png";
@@ -30,12 +25,12 @@ function CategorySection({ variant = "home" }) {
   const isPage = variant === "page";
   const [selectedCategory, setSelectedCategory] = useState("Bouquets");
   const [search, setSearch] = useState("");
+  const { addToCart } = useCart();
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       const matchesCategory =
-        product.category.toLowerCase() ===
-        selectedCategory.toLowerCase();
+        product.category.toLowerCase() === selectedCategory.toLowerCase();
 
       const matchesSearch = product.name
         .toLowerCase()
@@ -46,7 +41,7 @@ function CategorySection({ variant = "home" }) {
   }, [selectedCategory, search]);
 
   return (
-   <main className={isPage ? "category-page" : "category-section"}>
+    <main className={isPage ? "category-page" : "category-section"}>
       <div className="category-container">
         {isPage && (
           <div className="category-page-hero">
@@ -68,24 +63,28 @@ function CategorySection({ variant = "home" }) {
                 <em>a story to tell.</em>
               </h1>
               <p>
-                Explore our collections and find something beautiful
-                for every moment.
+                Explore our collections and find something beautiful for every
+                moment.
               </p>
-              <a href="#category-collections" className="category-page-hero__button">
+              <a
+                href="#category-collections"
+                className="category-page-hero__button"
+              >
                 Explore our collection <FiArrowRight />
               </a>
             </div>
           </div>
         )}
 
-        <div className="category-heading" id={isPage ? "category-collections" : undefined}>
+        <div
+          className="category-heading"
+          id={isPage ? "category-collections" : undefined}
+        >
           <div>
             <span className="category-eyebrow">
               {isPage ? "EXPLORE OUR COLLECTIONS" : "FIND YOUR PERFECT FLOWERS"}
             </span>
-            <h2>
-              {isPage ? "Shop by Category" : "Shop by Category"}
-            </h2>
+            <h2>{isPage ? "Shop by Category" : "Shop by Category"}</h2>
           </div>
 
           {!isPage && (
@@ -117,9 +116,7 @@ function CategorySection({ variant = "home" }) {
                   <span className="category-circle-image">
                     <img src={category.image} alt="" />
                   </span>
-                  <span className="category-circle-name">
-                    {category.name}
-                  </span>
+                  <span className="category-circle-name">{category.name}</span>
                 </button>
               ))}
             </div>
@@ -128,9 +125,7 @@ function CategorySection({ variant = "home" }) {
             <section className="category-products-section">
               <div className="category-products-heading">
                 <div>
-                  <span className="category-eyebrow">
-                    CURATED JUST FOR YOU
-                  </span>
+                  <span className="category-eyebrow">CURATED JUST FOR YOU</span>
                   <h2>{selectedCategory}</h2>
                   <p>
                     Discover our collection of {selectedCategory.toLowerCase()}.
@@ -152,10 +147,7 @@ function CategorySection({ variant = "home" }) {
               {filteredProducts.length > 0 ? (
                 <div className="category-product-grid">
                   {filteredProducts.map((product) => (
-                    <article
-                      className="category-product-card"
-                      key={product.id}
-                    >
+                    <article className="category-product-card" key={product.id}>
                       <div className="category-product-image">
                         <img
                           src={product.image}
@@ -197,6 +189,14 @@ function CategorySection({ variant = "home" }) {
                             </del>
                           )}
                         </div>
+                        <button
+                          type="button"
+                          className="category-add-to-cart"
+                          onClick={() => addToCart(product)}
+                        >
+                          <FiShoppingCart />
+                          Add to Cart
+                        </button>
 
                         <Link
                           to={`/product/${product.id}`}
@@ -211,9 +211,7 @@ function CategorySection({ variant = "home" }) {
               ) : (
                 <div className="category-products-empty">
                   <h3>
-                    {search
-                      ? "No matching products found"
-                      : "Coming soon"}
+                    {search ? "No matching products found" : "Coming soon"}
                   </h3>
                   <p>
                     {search
@@ -221,10 +219,7 @@ function CategorySection({ variant = "home" }) {
                       : `We're adding products to ${selectedCategory}. Explore another category in the meantime.`}
                   </p>
                   {search && (
-                    <button
-                      type="button"
-                      onClick={() => setSearch("")}
-                    >
+                    <button type="button" onClick={() => setSearch("")}>
                       Clear search
                     </button>
                   )}

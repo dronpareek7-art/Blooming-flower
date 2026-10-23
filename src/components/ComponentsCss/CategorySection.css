@@ -773,3 +773,25 @@
     transition-duration: 0.01ms !important;
   }
 }
+.category-page .category-add-to-cart {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border: 1px solid #173e2d;
+  border-radius: 4px;
+  background: #173e2d;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.category-page .category-add-to-cart:hover {
+  background: #285c42;
+}

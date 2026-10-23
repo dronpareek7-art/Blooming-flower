@@ -9,11 +9,17 @@ import {
   FiSliders,
   FiStar,
   FiX,
+  FiShoppingCart,
 } from "react-icons/fi";
 
 import products from "../data/products";
 import "@/components/ComponentsCss/Shop.css";
-
+import { useCart , totalItems } from "../context/CartContext";
+const handleAddToCart = (product) => {
+  addToCart(product);
+  setNotice(`${product.name} added to your cart`);
+  window.setTimeout(() => setNotice(""), 2500);
+};
 const categories = [
   "All Flowers",
   "Roses",
@@ -37,8 +43,8 @@ function Shop() {
   const [maxPrice, setMaxPrice] = useState(3000);
   const [showFilters, setShowFilters] = useState(false);
   const [wishlist, setWishlist] = useState([]);
-  const [cart, setCart] = useState([]);
   const [notice, setNotice] = useState("");
+  const { addToCart } = useCart;
 
   const filteredProducts = useMemo(() => {
     let result = products.filter((product) => {
@@ -71,12 +77,6 @@ function Shop() {
         ? current.filter((id) => id !== productId)
         : [...current, productId],
     );
-  };
-
-  const addToCart = (product) => {
-    setCart((current) => [...current, product]);
-    setNotice(`${product.name} added to your cart`);
-    window.setTimeout(() => setNotice(""), 2500);
   };
 
   const resetFilters = () => {
@@ -159,10 +159,10 @@ function Shop() {
             <p>Find your favourite blooms, all in one place.</p>
           </div>
 
-          <span className="shop-cart-summary">
-            <FiShoppingBag />
-            {cart.length} {cart.length === 1 ? "item" : "items"} added
-          </span>
+         <Link to="/cart" className="shop-cart-summary">
+  <FiShoppingBag />
+  {totalItems} {totalItems === 1 ? "item" : "items"} added
+</Link>
         </div>
 
         {/* Search and controls */}
@@ -387,14 +387,14 @@ function Shop() {
                           <del>{formatPrice(product.oldPrice)}</del>
                         </div>
 
-                        <button
-                          type="button"
-                          className="shop-add-cart"
-                          onClick={() => addToCart(product)}
-                        >
-                          <FiShoppingBag />
-                          Add to Cart
-                        </button>
+                      <button
+  type="button"
+  onClick={() => handleAddToCart(product)}
+  className="shop-add-to-cart"
+>
+  <FiShoppingCart />
+  Add to Cart
+</button>
                       </div>
                     </article>
                   );
