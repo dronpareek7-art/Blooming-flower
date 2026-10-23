@@ -8,7 +8,7 @@ import Shop from './pages/Shop'
 import Blog from './pages/Blog'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import Categories from './pages/Categories'
+import CategorySection from './components/CategorySection'
 
 const App = () => {
   return (
@@ -20,10 +20,7 @@ const App = () => {
     <Route path='/blogs' element={<Blog/>}/>
     <Route path='/about' element={<About/>}/>
     <Route path='/contact' element={<Contact/>}/>
-    <Route path='/categories' element={<Categories/>}/>
-    <Route path='/categories/:slug' element={<Categories/>}/>
-    
-    
+    <Route path='/categories' element={<CategorySection variant='page'/>}/>
     </Route>
    </Routes>
    </>
