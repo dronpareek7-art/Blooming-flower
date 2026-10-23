@@ -50,22 +50,35 @@ function CategorySection({ variant = "home" }) {
       <div className="category-container">
         {isPage && (
           <div className="category-page-hero">
-            <span className="category-eyebrow">
-              FIND YOUR PERFECT FLOWERS
-            </span>
-            <h1>
-              Every flower has
-              <br />
-              <em>a story to tell.</em>
-            </h1>
-            <p>
-              Explore our collections and find something beautiful
-              for every moment.
-            </p>
+            <div className="category-page-hero__image">
+              <img
+                src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=1600&q=85"
+                alt="Beautiful fresh flowers"
+              />
+            </div>
+            <div className="category-page-hero__overlay" />
+
+            <div className="category-page-hero__content">
+              <span className="category-eyebrow">
+                FIND YOUR PERFECT FLOWERS
+              </span>
+              <h1>
+                Every flower has
+                <br />
+                <em>a story to tell.</em>
+              </h1>
+              <p>
+                Explore our collections and find something beautiful
+                for every moment.
+              </p>
+              <a href="#category-collections" className="category-page-hero__button">
+                Explore our collection <FiArrowRight />
+              </a>
+            </div>
           </div>
         )}
 
-        <div className="category-heading">
+        <div className="category-heading" id={isPage ? "category-collections" : undefined}>
           <div>
             <span className="category-eyebrow">
               {isPage ? "EXPLORE OUR COLLECTIONS" : "FIND YOUR PERFECT FLOWERS"}
