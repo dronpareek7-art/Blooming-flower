@@ -128,7 +128,6 @@
   display: grid;
   min-width: 20px;
   height: 20px;
-  padding: 0 5px;
   place-items: center;
   border-radius: 50%;
   background: #171715;
