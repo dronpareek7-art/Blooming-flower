@@ -1,0 +1,838 @@
+/* =====================================================================
+   UX POLISH LAYER  (styling only — no JS / JSX changed)
+   Loaded via @import from ComponentsCss/ProductDetails.css (last CSS
+   file to load), so it can refine every page without touching markup.
+   Sections:
+   1. Tokens & base          6. Cards & images
+   2. Focus & accessibility  7. Forms & filters
+   3. Header                 8. Shop / Product / Cart feedback
+   4. Hero slider            9. Footer
+   5. Buttons               10. Page + scroll animations
+   ===================================================================== */
+
+/* ---------- 1. Tokens & base ---------- */
+:root {
+  --ux-green: #173d2b;
+  --ux-green-2: #285a40;
+  --ux-green-soft: rgba(40, 90, 64, 0.12);
+  --ux-rose: #c34f5b;
+  --ux-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ux-shadow-sm: 0 6px 18px rgba(30, 40, 30, 0.08);
+  --ux-shadow-md: 0 14px 34px rgba(30, 40, 30, 0.13);
+  --ux-header-h: 82px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--ux-header-h) + 16px);
+  scrollbar-width: thin;
+  scrollbar-color: #9db3a5 #f4f1ed;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: #d8e7dc;
+  color: #12301f;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f4f1ed;
+}
+::-webkit-scrollbar-thumb {
+  border: 2px solid #f4f1ed;
+  border-radius: 10px;
+  background: #9db3a5;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ux-green-2);
+}
+
+.app-layout button,
+.app-layout a,
+.app-layout label,
+.app-layout select {
+  touch-action: manipulation;
+}
+
+.app-layout img {
+  image-rendering: auto;
+}
+
+.app-layout input[type="range"] {
+  accent-color: var(--ux-green-2);
+  cursor: pointer;
+}
+
+/* ---------- 2. Focus & accessibility ---------- */
+.app-layout :is(a, button, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ux-green-2);
+  outline-offset: 3px;
+}
+
+.app-layout :is(input, textarea):focus-visible {
+  outline: none;
+}
+
+/* Wrapper-style search boxes light up while typing */
+.app-layout .shop-search,
+.app-layout .shop-sort,
+.app-layout .category-product-search,
+.app-layout .blog-search,
+.app-layout .blog-sort {
+  transition: box-shadow 0.25s var(--ux-ease), border-color 0.25s ease;
+}
+
+.app-layout .shop-search:focus-within,
+.app-layout .shop-sort:focus-within,
+.app-layout .category-product-search:focus-within,
+.app-layout .blog-search:focus-within,
+.app-layout .blog-sort:focus-within {
+  border-color: var(--ux-green-2);
+  box-shadow: 0 0 0 4px var(--ux-green-soft);
+}
+
+.app-layout .shop-search input,
+.app-layout .category-product-search input,
+.app-layout .blog-search input {
+  outline: none;
+}
+
+/* ---------- 3. Header ---------- */
+.app-layout .site-header {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: saturate(170%) blur(14px);
+  backdrop-filter: saturate(170%) blur(14px);
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.app-layout .header-logo {
+  transition: transform 0.35s var(--ux-ease), opacity 0.25s ease;
+}
+.app-layout .header-logo:hover {
+  transform: scale(1.03);
+}
+
+.app-layout .desktop-nav-link {
+  transition: color 0.25s ease, letter-spacing 0.3s var(--ux-ease);
+}
+.app-layout .desktop-nav-link:active {
+  opacity: 0.7;
+}
+
+/* round soft "halo" behind icon buttons on hover */
+.app-layout .header-icon-link,
+.app-layout .header-cart-link {
+  border-radius: 50%;
+  transition: color 0.25s ease, transform 0.3s var(--ux-ease),
+    box-shadow 0.3s var(--ux-ease), background-color 0.3s ease;
+}
+
+.app-layout .header-icon-link:hover,
+.app-layout .header-cart-link:hover {
+  background: var(--ux-green-soft);
+  box-shadow: 0 0 0 7px var(--ux-green-soft);
+}
+
+.app-layout .header-icon-link:active,
+.app-layout .header-cart-link:active,
+.app-layout .mobile-menu-toggle:active {
+  transform: scale(0.9);
+}
+
+.app-layout .header-cart-link svg {
+  transition: transform 0.35s var(--ux-ease);
+}
+.app-layout .header-cart-link:hover svg {
+  transform: translateY(-2px) rotate(-8deg);
+}
+
+.app-layout .header-cart-count {
+  animation: ux-pop 0.5s var(--ux-ease) backwards;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.app-layout .mobile-menu-toggle {
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+    transform 0.25s var(--ux-ease);
+}
+.app-layout .mobile-menu-toggle:hover {
+  border-color: var(--ux-green-2);
+  background: #f3f8f4;
+}
+
+/* mobile drawer */
+.app-layout .sidebar-close {
+  transition: transform 0.35s var(--ux-ease), background-color 0.25s ease,
+    color 0.25s ease;
+}
+.app-layout .sidebar-close:hover {
+  background: var(--ux-green-2);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.app-layout .sidebar-nav-link {
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease,
+    padding-left 0.3s var(--ux-ease);
+}
+.app-layout .sidebar-nav-link:hover,
+.app-layout .sidebar-nav-link:active {
+  padding-left: 10px;
+}
+.app-layout .sidebar-link-arrow {
+  transition: transform 0.3s var(--ux-ease), opacity 0.3s ease;
+}
+.app-layout .sidebar-nav-link:hover .sidebar-link-arrow,
+.app-layout .sidebar-nav-link.active .sidebar-link-arrow {
+  opacity: 1;
+  transform: translate(3px, -3px);
+}
+.app-layout .sidebar-quick-links a {
+  transition: color 0.2s ease, transform 0.25s var(--ux-ease);
+}
+.app-layout .sidebar-quick-links a:hover {
+  color: var(--ux-green-2);
+  transform: translateY(-2px);
+}
+
+/* ---------- 4. Hero slider ---------- */
+.app-layout .hero-image {
+  transform: scale(1);
+  transition: transform 8s linear;
+  will-change: transform;
+}
+.app-layout .swiper-slide-active .hero-image {
+  transform: scale(1.08);
+}
+
+.app-layout .swiper-slide-active .hero-content > * {
+  animation: ux-rise 0.9s var(--ux-ease) backwards;
+}
+.app-layout .swiper-slide-active .hero-content > :nth-child(1) { animation-delay: 0.15s; }
+.app-layout .swiper-slide-active .hero-content > :nth-child(2) { animation-delay: 0.3s; }
+.app-layout .swiper-slide-active .hero-content > :nth-child(3) { animation-delay: 0.45s; }
+.app-layout .swiper-slide-active .hero-content > :nth-child(4) { animation-delay: 0.6s; }
+
+.app-layout .swiper-slide-active .hero-offer {
+  animation: ux-pop-in 0.8s var(--ux-ease) 0.5s backwards,
+    ux-float 5s ease-in-out 1.4s infinite;
+}
+
+.app-layout .hero-nav-btn {
+  transition: background-color 0.25s ease, color 0.25s ease,
+    transform 0.3s var(--ux-ease), box-shadow 0.3s ease;
+}
+.app-layout .hero-nav-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+.app-layout .hero-prev:hover svg {
+  animation: ux-nudge-left 0.6s ease infinite alternate;
+}
+.app-layout .hero-next:hover svg {
+  animation: ux-nudge-right 0.6s ease infinite alternate;
+}
+.app-layout .hero-nav-btn:active {
+  transform: scale(0.94);
+}
+
+.app-layout .hero-swiper .swiper-pagination-bullet {
+  cursor: pointer;
+  transition: width 0.4s var(--ux-ease), opacity 0.3s ease,
+    background-color 0.3s ease;
+}
+.app-layout .hero-swiper .swiper-pagination-bullet:hover {
+  opacity: 0.85;
+}
+
+/* ---------- 5. Buttons ---------- */
+.app-layout :is(
+  .hero-btn,
+  .special-shop-btn,
+  .shop-hero-btn,
+  .cart-primary-button,
+  .about-button,
+  .contact-button,
+  .blog-hero__button,
+  .category-page-hero__button,
+  .details-add-to-cart,
+  .shop-add-to-cart,
+  .category-add-to-cart,
+  .category-product-link,
+  .category-view-all,
+  .blog-modal__action,
+  .blog-modal__done,
+  .shop-empty-state button,
+  .category-products-empty button,
+  .details-back-link,
+  .cart-continue-link
+) {
+  transition: transform 0.3s var(--ux-ease), box-shadow 0.3s var(--ux-ease),
+    background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.app-layout :is(
+  .hero-btn,
+  .special-shop-btn,
+  .shop-hero-btn,
+  .cart-primary-button,
+  .about-button,
+  .contact-button,
+  .blog-hero__button,
+  .category-page-hero__button,
+  .details-add-to-cart,
+  .shop-add-to-cart,
+  .category-add-to-cart,
+  .category-product-link,
+  .blog-modal__action,
+  .blog-modal__done
+):active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: none;
+}
+
+.app-layout :is(
+  .hero-btn,
+  .special-shop-btn,
+  .shop-hero-btn,
+  .cart-primary-button,
+  .about-button,
+  .contact-button,
+  .blog-hero__button,
+  .category-page-hero__button,
+  .category-view-all,
+  .blog-text-link,
+  .about-text-link
+) svg {
+  transition: transform 0.3s var(--ux-ease);
+}
+
+@media (hover: hover) {
+  .app-layout :is(
+    .hero-btn,
+    .special-shop-btn,
+    .shop-hero-btn,
+    .cart-primary-button,
+    .about-button,
+    .contact-button,
+    .blog-hero__button,
+    .category-page-hero__button,
+    .details-add-to-cart,
+    .shop-add-to-cart,
+    .category-add-to-cart,
+    .category-product-link
+  ):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(23, 61, 43, 0.22);
+  }
+
+  .app-layout :is(
+    .hero-btn,
+    .special-shop-btn,
+    .shop-hero-btn,
+    .cart-primary-button,
+    .about-button,
+    .contact-button,
+    .blog-hero__button,
+    .category-page-hero__button,
+    .category-view-all,
+    .blog-text-link,
+    .about-text-link
+  ):hover svg {
+    transform: translateX(5px);
+  }
+
+  .app-layout .shop-add-to-cart:hover svg,
+  .app-layout .category-add-to-cart:hover svg,
+  .app-layout .details-add-to-cart:hover svg {
+    animation: ux-wiggle 0.6s ease;
+  }
+}
+
+/* ---------- 6. Cards & images ---------- */
+.app-layout :is(
+  .category-card,
+  .category-product-card,
+  .blog-card,
+  .about-value-card,
+  .contact-detail-card,
+  .related-product-card,
+  .occasion-item,
+  .cart-item,
+  .shop-benefits > *
+) {
+  transition: transform 0.4s var(--ux-ease), box-shadow 0.4s var(--ux-ease),
+    border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.app-layout :is(
+  .blog-card__image-wrap,
+  .category-image-wrapper,
+  .category-product-image,
+  .related-product-image,
+  .cart-item-image
+) {
+  overflow: hidden;
+}
+
+.app-layout :is(
+  .category-image,
+  .blog-card__image,
+  .category-product-image img,
+  .related-product-image img,
+  .cart-item-image img
+) {
+  transition: transform 0.9s var(--ux-ease);
+}
+
+@media (hover: hover) {
+  .app-layout :is(
+    .category-card,
+    .category-product-card,
+    .blog-card,
+    .about-value-card,
+    .contact-detail-card,
+    .related-product-card,
+    .occasion-item
+  ):hover {
+    transform: translateY(-6px);
+    box-shadow: var(--ux-shadow-md);
+  }
+
+  .app-layout .cart-item:hover {
+    box-shadow: var(--ux-shadow-sm);
+  }
+
+  .app-layout .category-card:hover .category-image,
+  .app-layout .blog-card:hover .blog-card__image,
+  .app-layout .category-product-card:hover .category-product-image img,
+  .app-layout .related-product-card:hover .related-product-image img,
+  .app-layout .cart-item:hover .cart-item-image img {
+    transform: scale(1.08);
+  }
+
+  .app-layout .occasion-item:hover .occasion-icon {
+    transform: scale(1.1) rotate(-6deg);
+  }
+  .app-layout .occasion-item:hover .occasion-arrow,
+  .app-layout .category-card:hover .category-card-arrow {
+    transform: translateX(5px);
+  }
+
+  .app-layout .about-value-card:hover .about-value-card__icon,
+  .app-layout .contact-detail-card:hover .contact-detail-card__icon {
+    transform: scale(1.12) rotate(-6deg);
+  }
+}
+
+.app-layout .occasion-icon,
+.app-layout .occasion-arrow,
+.app-layout .category-card-arrow,
+.app-layout .about-value-card__icon,
+.app-layout .contact-detail-card__icon {
+  transition: transform 0.4s var(--ux-ease), background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.app-layout .occasion-item:active,
+.app-layout .category-card:active,
+.app-layout .blog-card:active,
+.app-layout .category-product-card:active {
+  transform: scale(0.985);
+}
+
+/* Category circles (selector) */
+.app-layout .category-circle {
+  transition: transform 0.3s var(--ux-ease);
+  cursor: pointer;
+}
+.app-layout .category-circle:active {
+  transform: scale(0.94);
+}
+.app-layout .category-circle-image {
+  transition: border-color 0.3s ease, transform 0.35s var(--ux-ease),
+    box-shadow 0.35s ease;
+}
+.app-layout .category-circle:hover .category-circle-image {
+  transform: translateY(-4px);
+  box-shadow: var(--ux-shadow-sm);
+}
+.app-layout .category-circle.is-selected .category-circle-image {
+  border-color: var(--ux-green-2);
+  box-shadow: 0 0 0 5px var(--ux-green-soft), var(--ux-shadow-sm);
+}
+.app-layout .category-circle-name {
+  transition: color 0.25s ease;
+}
+.app-layout .category-circle.is-selected .category-circle-name,
+.app-layout .category-circle:hover .category-circle-name {
+  color: var(--ux-green-2);
+}
+
+/* Blog filter chips + modal */
+.app-layout .blog-filters button {
+  transition: transform 0.25s var(--ux-ease), background-color 0.25s ease,
+    color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.app-layout .blog-filters button:hover {
+  transform: translateY(-2px);
+}
+.app-layout .blog-filters button:active {
+  transform: scale(0.95);
+}
+
+.app-layout .blog-modal {
+  animation: ux-fade 0.3s ease backwards;
+}
+.app-layout .blog-modal__close {
+  transition: transform 0.35s var(--ux-ease), background-color 0.25s ease,
+    color 0.25s ease;
+}
+.app-layout .blog-modal__close:hover {
+  transform: rotate(90deg) scale(1.08);
+}
+
+/* ---------- 7. Forms & filters ---------- */
+.app-layout .contact-form :is(input, textarea, select) {
+  transition: border-color 0.25s ease, box-shadow 0.3s var(--ux-ease),
+    background-color 0.25s ease, transform 0.3s var(--ux-ease);
+}
+.app-layout .contact-form :is(input, textarea, select):hover {
+  border-color: #b7c7bb;
+}
+.app-layout .contact-form :is(input, textarea, select):focus {
+  border-color: var(--ux-green-2);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px var(--ux-green-soft);
+  outline: none;
+}
+
+.app-layout .shop-category-option {
+  transition: color 0.25s ease, transform 0.3s var(--ux-ease);
+}
+.app-layout .shop-category-option:hover {
+  transform: translateX(4px);
+}
+.app-layout .shop-radio-dot {
+  transition: border-width 0.25s var(--ux-ease), border-color 0.25s ease,
+    transform 0.25s var(--ux-ease);
+}
+.app-layout .shop-category-option:hover .shop-radio-dot {
+  border-color: var(--ux-green-2);
+}
+.app-layout .shop-category-option:active .shop-radio-dot {
+  transform: scale(0.8);
+}
+
+.app-layout .shop-filter-toggle,
+.app-layout .shop-sidebar-heading > button,
+.app-layout .shop-sidebar-promo button {
+  transition: transform 0.25s var(--ux-ease), background-color 0.25s ease,
+    color 0.25s ease, border-color 0.25s ease;
+}
+.app-layout .shop-filter-toggle:active {
+  transform: scale(0.96);
+}
+.app-layout .shop-sidebar-promo button:hover {
+  transform: translateX(4px);
+}
+
+/* sidebar must clear the sticky header on desktop only */
+@media (min-width: 761px) {
+  .app-layout .shop-sidebar {
+    top: calc(var(--ux-header-h) + 18px);
+  }
+}
+
+/* ---------- 8. Shop / Product / Cart feedback ---------- */
+.app-layout .shop-wishlist-btn,
+.app-layout .details-favorite {
+  transition: transform 0.3s var(--ux-ease), background-color 0.25s ease,
+    color 0.25s ease, box-shadow 0.25s ease;
+}
+.app-layout .shop-wishlist-btn:active,
+.app-layout .details-favorite:active {
+  transform: scale(0.85);
+}
+.app-layout .shop-wishlist-btn.wishlisted svg,
+.app-layout .details-favorite.is-favorite svg {
+  animation: ux-heart 0.6s var(--ux-ease);
+}
+
+.app-layout .shop-quick-view {
+  transition: opacity 0.35s var(--ux-ease), transform 0.35s var(--ux-ease),
+    background-color 0.25s ease, color 0.25s ease;
+}
+.app-layout .shop-quick-view:hover {
+  background: var(--ux-green);
+  color: #fff !important;
+}
+
+.app-layout .shop-cart-summary {
+  transition: transform 0.3s var(--ux-ease), box-shadow 0.3s ease;
+}
+.app-layout .shop-cart-summary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ux-shadow-sm);
+}
+
+/* toasts / notices slide in when they appear */
+.app-layout .shop-toast {
+  animation: ux-toast 0.5s var(--ux-ease) backwards;
+}
+.app-layout .details-cart-notice {
+  animation: ux-rise 0.45s var(--ux-ease) backwards;
+}
+
+/* product details */
+.app-layout .product-details-page .details-image-wrap {
+  transition: box-shadow 0.4s ease;
+}
+.app-layout .product-details-page .details-image-wrap:hover {
+  box-shadow: var(--ux-shadow-md);
+}
+.app-layout .product-details-page .details-product-image {
+  transition: transform 1s var(--ux-ease);
+}
+.app-layout .product-details-page .quantity-control button {
+  transition: background-color 0.2s ease, color 0.2s ease,
+    transform 0.2s var(--ux-ease);
+}
+.app-layout .product-details-page .quantity-control button:hover:not(:disabled) {
+  background: var(--ux-green-soft);
+  color: var(--ux-green);
+}
+.app-layout .product-details-page .quantity-control button:active:not(:disabled) {
+  transform: scale(0.82);
+}
+.app-layout .product-details-page .details-add-to-cart {
+  transition: transform 0.3s var(--ux-ease), box-shadow 0.3s var(--ux-ease),
+    background-color 0.25s ease;
+}
+.app-layout .product-details-page .details-breadcrumb a,
+.app-layout .product-details-page .details-back-link {
+  transition: color 0.2s ease, transform 0.3s var(--ux-ease);
+}
+.app-layout .product-details-page .details-back-link:hover {
+  transform: translateX(-4px);
+}
+
+/* cart */
+.app-layout .cart-quantity button {
+  transition: background-color 0.2s ease, color 0.2s ease,
+    transform 0.2s var(--ux-ease);
+}
+.app-layout .cart-quantity button:hover:not(:disabled) {
+  background: var(--ux-green-soft);
+  color: var(--ux-green);
+}
+.app-layout .cart-quantity button:active:not(:disabled) {
+  transform: scale(0.82);
+}
+.app-layout .cart-remove-button,
+.app-layout .cart-clear-button {
+  transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s var(--ux-ease);
+}
+.app-layout .cart-remove-button:hover,
+.app-layout .cart-clear-button:hover {
+  color: var(--ux-rose);
+}
+.app-layout .cart-remove-button:active,
+.app-layout .cart-clear-button:active {
+  transform: scale(0.94);
+}
+.app-layout .cart-empty-icon {
+  animation: ux-float 4.5s ease-in-out infinite;
+}
+.app-layout .cart-summary {
+  transition: box-shadow 0.4s ease;
+}
+.app-layout .cart-summary:hover {
+  box-shadow: var(--ux-shadow-sm);
+}
+
+/* ---------- 9. Footer ---------- */
+.app-layout .footer-column a {
+  position: relative;
+  transition: color 0.25s ease, transform 0.3s var(--ux-ease);
+}
+.app-layout .footer-column a:hover {
+  color: #b6d6bc;
+  transform: translateX(5px);
+}
+.app-layout .footer-socials a {
+  display: inline-flex;
+  transition: color 0.25s ease, transform 0.35s var(--ux-ease);
+}
+.app-layout .footer-socials a:hover {
+  transform: translateY(-4px) scale(1.15);
+}
+.app-layout .footer-logo {
+  transition: transform 0.35s var(--ux-ease);
+}
+.app-layout .footer-logo:hover {
+  transform: scale(1.04);
+}
+
+/* ---------- 10. Page + scroll animations ---------- */
+/* soft fade whenever a route changes (opacity only, so fixed
+   modals/drawers inside pages keep working correctly) */
+.app-layout .main-content > * {
+  animation: ux-page 0.5s ease backwards;
+}
+
+/* grids re-animate when filters / category change (new cards mount) */
+.app-layout :is(.shop-product-card, .category-product-card, .related-product-card, .cart-item) {
+  animation: ux-rise 0.6s var(--ux-ease) backwards;
+}
+.app-layout :is(.shop-product-card, .category-product-card, .related-product-card, .cart-item):nth-child(2) { animation-delay: 0.05s; }
+.app-layout :is(.shop-product-card, .category-product-card, .related-product-card, .cart-item):nth-child(3) { animation-delay: 0.1s; }
+.app-layout :is(.shop-product-card, .category-product-card, .related-product-card, .cart-item):nth-child(4) { animation-delay: 0.15s; }
+.app-layout :is(.shop-product-card, .category-product-card, .related-product-card, .cart-item):nth-child(5) { animation-delay: 0.2s; }
+.app-layout :is(.shop-product-card, .category-product-card, .related-product-card, .cart-item):nth-child(6) { animation-delay: 0.25s; }
+.app-layout :is(.shop-product-card, .category-product-card, .related-product-card, .cart-item):nth-child(7) { animation-delay: 0.3s; }
+.app-layout :is(.shop-product-card, .category-product-card, .related-product-card, .cart-item):nth-child(n + 8) { animation-delay: 0.35s; }
+
+@keyframes ux-page {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes ux-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes ux-rise {
+  from { opacity: 0; translate: 0 26px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes ux-pop {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+@keyframes ux-pop-in {
+  from { opacity: 0; scale: 0.6; }
+  to { opacity: 1; scale: 1; }
+}
+@keyframes ux-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+@keyframes ux-heart {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.45); }
+  60% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+@keyframes ux-wiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-14deg); }
+  75% { transform: rotate(14deg); }
+}
+@keyframes ux-nudge-left {
+  to { transform: translateX(-3px); }
+}
+@keyframes ux-nudge-right {
+  to { transform: translateX(3px); }
+}
+@keyframes ux-toast {
+  from { opacity: 0; translate: 0 24px; scale: 0.96; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+/* Scroll-driven extras (progressive: browsers without support ignore) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* reading-progress line under the header */
+    .app-layout .site-header::after {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ux-green-2), #d99a90);
+      content: "";
+      pointer-events: none;
+      transform: scaleX(0);
+      transform-origin: left center;
+      animation: ux-progress linear both;
+      animation-timeline: scroll(root);
+    }
+
+    /* header gains a shadow once the page scrolls */
+    .app-layout .site-header {
+      animation: ux-header-shadow linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90px;
+    }
+
+    /* static sections fade/slide in as they enter the viewport */
+    .app-layout :is(
+      .category-card,
+      .occasion-item,
+      .special-banner,
+      .about-value-card,
+      .about-story__content,
+      .about-story__image,
+      .about-showcase__content,
+      .about-showcase__images,
+      .about-cta,
+      .contact-detail-card,
+      .contact-form,
+      .contact-main__aside,
+      .shop-benefits > *,
+      .shop-section-heading,
+      .category-heading,
+      .blog-cta,
+      .related-heading
+    ) {
+      animation: ux-reveal linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+
+@keyframes ux-progress {
+  to { transform: scaleX(1); }
+}
+@keyframes ux-header-shadow {
+  from { box-shadow: 0 0 0 rgba(20, 30, 20, 0); }
+  to { box-shadow: 0 10px 30px rgba(20, 30, 20, 0.09); }
+}
+@keyframes ux-reveal {
+  from { opacity: 0; translate: 0 38px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* Responsive header height token (used for scroll offsets) */
+@media (max-width: 992px) {
+  :root { --ux-header-h: 72px; }
+}
+@media (max-width: 480px) {
+  :root { --ux-header-h: 66px; }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .app-layout *,
+  .app-layout *::before,
+  .app-layout *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .app-layout .swiper-slide-active .hero-image {
+    transform: none;
+  }
+}
